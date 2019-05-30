@@ -1,4 +1,4 @@
-//Package rule_engine is the Rule Engine Implementation.
+// Package rule_engine is the Rule Engine Implementation.
 package rule_engine
 
 import "sort"

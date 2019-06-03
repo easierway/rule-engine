@@ -21,6 +21,10 @@ func (eng *Engine) AppendRule(rule *Rule) *Engine {
 	return eng
 }
 
+func (eng *Engine) Rules(newRules ...*Rule) {
+	eng.rules = newRules
+}
+
 func (eng *Engine) reset() {
 	for _, rule := range eng.rules {
 		rule.reset()

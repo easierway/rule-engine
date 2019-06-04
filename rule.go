@@ -23,6 +23,7 @@ type Rule struct {
 	PositiveAction ActionFunc
 	Order          int // The higher priority rule would be checked first.
 	processed      bool
+	Repeatable     bool
 }
 
 // NewRule is to create a new rule (can be used as "method chain" style)
@@ -54,6 +55,12 @@ func (r *Rule) Then(action ActionFunc) *Rule {
 // The smaller value would be executed first.
 func (r *Rule) WithOrder(order int) *Rule {
 	r.Order = order
+	return r
+}
+
+// IsRepeatable to set if the rule can be executed repeatly.
+func (r *Rule) IsRepeatable(repeatable bool) *Rule {
+	r.Repeatable = repeatable
 	return r
 }
 

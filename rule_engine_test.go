@@ -29,9 +29,12 @@ func TestCase1(t *testing.T) {
 			if !ok {
 				t.Fatal("fact should be a person.")
 			}
-			p.Role = "Student"
-			return true
-		})
+			if p.Role != "Student" {
+				p.Role = "Student"
+				return true
+			}
+			return false
+		}).IsRepeatable(true)
 	rule2 := NewRule("is student").
 		When(func(f Fact) bool {
 			p, ok := f.(*Person)
@@ -156,7 +159,7 @@ func TestCase2(t *testing.T) {
 	}
 }
 
-func TestPriority(t *testing.T) {
+func TestWithOrder(t *testing.T) {
 	fact1 := &Person{
 		"Mike", 7, "", []string{},
 	}

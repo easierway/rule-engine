@@ -42,7 +42,7 @@ func (eng *Engine) Analyze(fact Fact) {
 		}
 		needAnalyzing = false
 		for _, rule := range eng.rules {
-			if rule.processed {
+			if rule.processed && !rule.Repeatable {
 				continue
 			}
 			if rule.ConditionFun(fact) {

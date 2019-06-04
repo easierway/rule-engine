@@ -1,5 +1,9 @@
 package rule_engine
 
+const (
+	DefaultOrderValue = 5
+)
+
 // Fact object
 type Fact interface{}
 
@@ -17,7 +21,7 @@ type Rule struct {
 	Name           string
 	ConditionFun   ConditionFunc
 	PositiveAction ActionFunc
-	Priority       int8 // The higher priority rule would be checked first.
+	Order          int // The higher priority rule would be checked first.
 	processed      bool
 }
 
@@ -25,7 +29,8 @@ type Rule struct {
 // See also, the tests.
 func NewRule(name string) *Rule {
 	return &Rule{
-		Name: name,
+		Name:  name,
+		Order: DefaultOrderValue,
 	}
 }
 
@@ -45,13 +50,14 @@ func (r *Rule) Then(action ActionFunc) *Rule {
 	return r
 }
 
-// WithPriority is to set priority of the rule
-func (r *Rule) WithPriority(pri int8) *Rule {
-	r.Priority = pri
+// WithOrder is to set execution order of the rule
+// The smaller value would be executed first.
+func (r *Rule) WithOrder(order int) *Rule {
+	r.Order = order
 	return r
 }
 
-// RuleSlice is used to sort the rules with priority by implemented sortable interface.
+// RuleSlice is used to sort the rules with order by implemented sortable interface.
 type RuleSlice []*Rule
 
 func (rs RuleSlice) Len() int {
@@ -63,5 +69,5 @@ func (rs RuleSlice) Swap(i, j int) {
 }
 
 func (rs RuleSlice) Less(i, j int) bool {
-	return !(rs[i].Priority < rs[j].Priority)
+	return rs[i].Order < rs[j].Order
 }

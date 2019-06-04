@@ -69,7 +69,7 @@ func TestCase1(t *testing.T) {
 			}
 			p.Tasks = append(p.Tasks, "Learning")
 			return true
-		}).WithPriority(10)
+		}).WithOrder(10)
 	engine := NewEngine()
 	engine.AppendRule(rule3).
 		AppendRule(rule1).
@@ -141,7 +141,7 @@ func TestCase2(t *testing.T) {
 			}
 			p.Tasks = append(p.Tasks, "Learning")
 			return true
-		}).WithPriority(10)
+		}).WithOrder(10)
 	engine := NewEngine()
 	engine.AppendRule(rule3).
 		AppendRule(rule1).
@@ -184,7 +184,7 @@ func TestPriority(t *testing.T) {
 			}
 			p.Tasks = append(p.Tasks, "task2")
 			return true
-		}).WithPriority(100)
+		}).WithOrder(100)
 
 	rule3 := NewRule("task3").
 		When(func(f Fact) bool {
@@ -197,7 +197,7 @@ func TestPriority(t *testing.T) {
 			}
 			p.Tasks = append(p.Tasks, "task3")
 			return true
-		}).WithPriority(10)
+		}).WithOrder(10)
 	engine := NewEngine()
 	engine.AppendRule(rule3).
 		AppendRule(rule1).
